@@ -17,6 +17,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.api.backend.models.entities.Activity;
+import com.api.backend.models.entities.User;
 import com.api.backend.models.repositories.ActivityRepository;
 
 @Service
@@ -36,6 +37,16 @@ public class ActivityServiceImpl implements ActivityService {
 		// TODO Auto-generated method stub
 		 this.repo.save(model);
 	     return model;
+	}
+
+	@Override
+	public void saveActivity(User user, String Event, String Description) {
+		// TODO Auto-generated method stub
+		Activity activity = new Activity();
+		activity.setUser(user);
+		activity.setEvent(Event);
+		activity.setDescription(Description);
+		this.repo.save(activity);
 	}
 
 }

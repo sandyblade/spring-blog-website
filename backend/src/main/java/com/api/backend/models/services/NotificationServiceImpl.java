@@ -18,6 +18,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.api.backend.models.entities.Notification;
+import com.api.backend.models.entities.User;
 import com.api.backend.models.repositories.NotificationRepository;
 
 @Service
@@ -50,6 +51,16 @@ public class NotificationServiceImpl implements NotificationService {
 		// TODO Auto-generated method stub
 		Notification model = this.repo.findById(id, user_id);
 		this.repo.delete(model); 
+	}
+
+	@Override
+	public void sendNotif(User user, String Subject, String Message) {
+		// TODO Auto-generated method stub
+		Notification notif = new Notification();
+		notif.setUser(user);
+		notif.setSubject(Subject);
+		notif.setMessage(Message);
+		this.repo.save(notif);
 	}
 
 }

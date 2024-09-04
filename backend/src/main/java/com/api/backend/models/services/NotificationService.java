@@ -14,10 +14,12 @@ package com.api.backend.models.services;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import com.api.backend.models.entities.Notification;
+import com.api.backend.models.entities.User;
 
 public interface NotificationService {
 	Page<Notification> findAll(Pageable pageable, long user_id, String keyword);
 	Notification findById(long id, long user_id);
 	Notification saveOrUpdate(Notification model);
 	void Remove(long id, long user_id);
+	void sendNotif(User user, String Subject, String Message);
 }
