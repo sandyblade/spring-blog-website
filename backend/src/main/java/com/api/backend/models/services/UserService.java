@@ -14,8 +14,10 @@ package com.api.backend.models.services;
 import com.api.backend.models.entities.User;
 
 public interface UserService {
-	
 	Long TotalRows();
-
 	User saveOrUpdate(User model);
+	User findByEmail(String email, long id);
+	User findByPhone(String phone, long id);
+	User findByConfirmToken(String token);
+	User findByResetToken(String token);
 }

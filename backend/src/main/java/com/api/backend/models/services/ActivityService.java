@@ -11,6 +11,12 @@
 
 package com.api.backend.models.services;
 
-public interface ActivityService {
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import com.api.backend.models.entities.Activity;
 
+
+public interface ActivityService {
+	Page<Activity> findAll(Pageable pageable, long user_id, String keyword);
+	Activity saveOrUpdate(Activity model);
 }

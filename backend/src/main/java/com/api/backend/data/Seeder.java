@@ -26,7 +26,7 @@ import com.api.backend.models.services.UserService;
 @Component
 public class Seeder {
 
-	private static int MAX_USER = 100;
+	private static int MAX_USER = 10;
 	private static String DEFAULT_PASSWORD = "P@ssw0rd!123";
 
 	@Autowired

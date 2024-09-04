@@ -18,7 +18,19 @@ import com.api.backend.models.entities.User;
 
 public interface UserRepository extends JpaRepository<User, Long> {
 
-	@Query(value = "select count(*) from public.users x where x.id <> 0", nativeQuery = true)
+	@Query(value = "SELECT count(*) FROM public.users x WHERE x.id <> 0", nativeQuery = true)
 	long count();
+	
+	@Query(value = "SELECT * FROM public.users x WHERE x.email = ?1 AND x.id <> ?2 LIMIT 1", nativeQuery = true)
+	User findByEmail(String email, long id);
+    
+    @Query(value = "SELECT * FROM public.users x WHERE x.phone = ?1 AND x.id <> ?2 LIMIT 1", nativeQuery = true)
+	User findByPhone(String phone, long id);
+    
+    @Query(value = "SELECT * FROM public.users x WHERE x.confirm_token = ?1 AND x.confirmed = 0 LIMIT 1", nativeQuery = true)
+	User findByConfirmToken(String token);
+    
+    @Query(value = "SELECT * FROM public.users x WHERE x.reset_token = ?1 AND x.confirmed = 1 LIMIT 1", nativeQuery = true)
+	User findByResetToken(String token);
 
 }

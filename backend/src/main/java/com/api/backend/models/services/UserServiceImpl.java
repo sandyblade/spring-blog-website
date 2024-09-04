@@ -35,4 +35,28 @@ public class UserServiceImpl implements UserService {
 	     return model;
 	}
 
+	@Override
+	public User findByEmail(String email, long id) {
+		// TODO Auto-generated method stub
+		return this.repo.findByEmail(email, id);
+	}
+
+	@Override
+	public User findByPhone(String phone, long id) {
+		// TODO Auto-generated method stub
+		return this.repo.findByPhone(phone, id);
+	}
+
+	@Override
+	public User findByConfirmToken(String token) {
+		// TODO Auto-generated method stub
+		return this.repo.findByConfirmToken(token);
+	}
+
+	@Override
+	public User findByResetToken(String token) {
+		// TODO Auto-generated method stub
+		return this.repo.findByResetToken(token);
+	}
+
 }

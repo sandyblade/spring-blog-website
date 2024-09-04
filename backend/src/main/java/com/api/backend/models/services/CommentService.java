@@ -11,6 +11,14 @@
 
 package com.api.backend.models.services;
 
-public interface CommentService {
+import java.util.List;
 
+import com.api.backend.models.dto.CommentListDto;
+import com.api.backend.models.dto.ICommentDto;
+
+public interface CommentService {
+	long countByArticle(long article_id);
+	List<ICommentDto> findAll(long article_id);
+	List<ICommentDto> findByParent(long article_id, long parent_id);
+	List<CommentListDto> BuildTree(List<ICommentDto> elements, long parent_id);
 }

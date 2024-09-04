@@ -11,6 +11,10 @@
 
 package com.api.backend.models.services;
 
-public interface ViewerService {
+import com.api.backend.models.entities.Viewer;
 
+public interface ViewerService {
+	long count(long user_id, long article_id);
+	long countByArticle(long article_id);
+	Viewer saveOrUpdate(Viewer model);
 }

@@ -11,6 +11,35 @@
 
 package com.api.backend.models.services;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.api.backend.models.entities.Viewer;
+import com.api.backend.models.repositories.ViewerRepository;
+
+@Service
 public class ViewerServiceImpl implements ViewerService {
+	
+	@Autowired
+	private ViewerRepository repo;
+
+	@Override
+	public long count(long user_id, long article_id) {
+		// TODO Auto-generated method stub
+		return repo.count(user_id, article_id);
+	}
+
+	@Override
+	public Viewer saveOrUpdate(Viewer model) {
+		// TODO Auto-generated method stub
+		this.repo.save(model);
+	    return model;
+	}
+
+	@Override
+	public long countByArticle(long article_id) {
+		// TODO Auto-generated method stub
+		return this.repo.countByArticle(article_id);
+	}
 
 }
