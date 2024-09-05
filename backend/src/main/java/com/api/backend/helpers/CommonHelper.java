@@ -20,8 +20,14 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.regex.Pattern;
 
-public class CommonHelper {
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
+import com.api.backend.models.services.UserService;
 
+public class CommonHelper {
+	
 	private static final Pattern NONLATIN = Pattern.compile("[^\\w-]");
 	private static final Pattern WHITESPACE = Pattern.compile("[\\s]");
 
@@ -51,5 +57,6 @@ public class CommonHelper {
 		String slug = NONLATIN.matcher(normalized).replaceAll("");
 		return slug.toLowerCase(Locale.ENGLISH);
 	}
-
+	
+	
 }

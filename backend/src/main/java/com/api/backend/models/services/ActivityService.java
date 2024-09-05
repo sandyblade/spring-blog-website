@@ -11,14 +11,18 @@
 
 package com.api.backend.models.services;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+
+import com.api.backend.models.dto.ActivityListDto;
 import com.api.backend.models.entities.Activity;
 import com.api.backend.models.entities.User;
 
 
 public interface ActivityService {
-	Page<Activity> findAll(Pageable pageable, long user_id, String keyword);
+	List<ActivityListDto> findAll(long user_id, int start, int length, String orderby, String orderdir, String search);
 	Activity saveOrUpdate(Activity model);
 	void saveActivity(User user, String Event, String Description);
 }

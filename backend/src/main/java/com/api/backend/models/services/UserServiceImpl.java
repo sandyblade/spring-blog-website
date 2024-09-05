@@ -12,12 +12,18 @@
 
 package com.api.backend.models.services;
 
+import java.text.ParseException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.api.backend.config.EncoderConfig;
+import com.api.backend.helpers.CommonHelper;
 import com.api.backend.models.dto.UserDetailDto;
 import com.api.backend.models.entities.User;
 import com.api.backend.models.repositories.UserRepository;
+import com.api.backend.models.schema.UserChangePassword;
+import com.api.backend.models.schema.UserChangeProfile;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -84,6 +90,60 @@ public class UserServiceImpl implements UserService {
 		model.setCreatedAt(user.getCreatedAt());
 		model.setUpdatedAt(user.getUpdatedAt());
 		return model;
+	}
+
+	@Override
+	public User ChangeProfile(User User, UserChangeProfile model) {
+		// TODO Auto-generated method stub
+		try {
+			User.setEmail(model.getEmail());
+			User.setPhone(model.getPhone());
+			User.setFirstName(model.getFirstName());
+			User.setLastName(model.getLastName());
+			User.setGender(model.getGender());
+			User.setCountry(model.getCountry());
+			User.setFacebook(model.getFacebook());
+			User.setInstagram(model.getInstagram());
+			User.setTwitter(model.getTwitter());
+			User.setLinkedIn(model.getLinkedIn());
+			User.setAddress(model.getAddress());
+			User.setAboutMe(model.getAboutMe());
+			User.setUpdatedAt(CommonHelper.DateNow());
+			return saveOrUpdate(User);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	@Override
+	public User ChangePassword(User User, UserChangePassword model) {
+		// TODO Auto-generated method stub
+		try {
+			EncoderConfig enc = new EncoderConfig();
+			String password = enc.passwordEncoder().encode(model.getNewPassword());
+			User.setPassword(password);
+			User.setUpdatedAt(CommonHelper.DateNow());
+			return saveOrUpdate(User);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	@Override
+	public void UploadImage(User User, String Image) {
+		// TODO Auto-generated method stub
+		try {
+			User.setImage(Image);
+			User.setUpdatedAt(CommonHelper.DateNow());
+			saveOrUpdate(User);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }
