@@ -19,14 +19,12 @@ public class UserLogin implements Serializable {
 
 	private String Email;
 	private String Password;
-	private Boolean RememberMe;
 
 	public UserLogin() {}
 
-	public UserLogin(String email, String password, Boolean remember) {
+	public UserLogin(String email, String password) {
         this.setEmail(email);
         this.setPassword(password);
-		this.setRememberMe(remember);
     }
 
 	public String getEmail() {
@@ -44,13 +42,4 @@ public class UserLogin implements Serializable {
 	public void setPassword(String password) {
 		Password = password;
 	}
-
-	public Boolean getRememberMe() {
-		return RememberMe;
-	}
-
-	public void setRememberMe(Boolean rememberMe) {
-		RememberMe = rememberMe;
-	}
-
 }

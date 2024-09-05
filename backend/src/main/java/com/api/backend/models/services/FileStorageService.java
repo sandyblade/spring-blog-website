@@ -1,29 +1,5 @@
-/**
- * This file is part of the Sandy Andryanto Blog Application.
- *
- * @author     Sandy Andryanto <sandy.andryanto.blade@gmail.com>
- * @copyright  2024
- *
- * For the full copyright and license information,
- * please view the LICENSE.md file that was distributed
- * with this source code.
- */
-
 package com.api.backend.models.services;
 
-import org.springframework.stereotype.Service;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.MalformedURLException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
-import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
@@ -36,9 +12,23 @@ import com.api.backend.config.FileStorageProperties;
 import com.api.backend.exception.FileStorageException;
 import com.api.backend.exception.MyFileNotFoundException;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.MalformedURLException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+import java.util.UUID;
+
+
 @Service
 public class FileStorageService {
-
+	
 	private final Path fileStorageLocation;
 
 	@Autowired

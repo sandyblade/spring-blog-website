@@ -11,6 +11,7 @@
 
 package com.api.backend.models.services;
 
+import com.api.backend.models.dto.UserDetailDto;
 import com.api.backend.models.entities.User;
 
 public interface UserService {
@@ -20,4 +21,5 @@ public interface UserService {
 	User findByPhone(String phone, long id);
 	User findByConfirmToken(String token);
 	User findByResetToken(String token);
+	UserDetailDto detail(User user);
 }

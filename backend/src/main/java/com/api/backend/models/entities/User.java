@@ -13,6 +13,9 @@ package com.api.backend.models.entities;
 
 import jakarta.persistence.*;
 import org.hibernate.annotations.ColumnDefault;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.util.Date;
 
 @Entity
@@ -32,6 +35,7 @@ public class User {
 	private String Email;
 
 	@Column(nullable = false, columnDefinition = "varchar(255)")
+	@JsonIgnoreProperties(ignoreUnknown=true)
 	private String Password;
 
 	@Column(nullable = true, columnDefinition = "varchar(64)", unique = true)
