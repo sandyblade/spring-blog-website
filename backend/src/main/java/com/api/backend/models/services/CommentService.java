@@ -26,5 +26,6 @@ public interface CommentService {
 	List<ICommentDto> findByParent(long article_id, long parent_id);
 	List<CommentListDto> BuildTree(List<ICommentDto> elements, long parent_id);
 	Comment saveOrUpdate(User User, Article Article, String Body, Comment Parent);
+	Comment findBy(long id);
 	void Remove(User User, long Id);
 }

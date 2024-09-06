@@ -114,4 +114,10 @@ public class CommentServiceImpl implements CommentService {
 		}
 	}
 
+	@Override
+	public Comment findBy(long id) {
+		// TODO Auto-generated method stub
+		return this.repo.findBy(id);
+	}
+
 }

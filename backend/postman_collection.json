@@ -550,14 +550,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{baseURL}}api/comment/list/2",
+							"raw": "{{baseURL}}api/comment/list/4",
 							"host": [
 								"{{baseURL}}api"
 							],
 							"path": [
 								"comment",
 								"list",
-								"2"
+								"4"
 							]
 						}
 					},
@@ -578,14 +578,14 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseURL}}api/comment/create/2",
+							"raw": "{{baseURL}}api/comment/create/4",
 							"host": [
 								"{{baseURL}}api"
 							],
 							"path": [
 								"comment",
 								"create",
-								"2"
+								"4"
 							]
 						}
 					},
@@ -618,7 +618,7 @@
 		"bearer": [
 			{
 				"key": "token",
-				"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJoZWF0aC5ncmVlbkBob3RtYWlsLmNvbSIsImV4cCI6MTcyNjY3MjUwN30._jCc8q8OnnVkHbN9tBx3nN1HBTq7ubb0s63AC0UU-DRsK9kduFm9edk4NFm4jF2Q_wlg_FeVfFBZXQjbTGG4uA",
+				"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJoZWF0aC5ncmVlbkBob3RtYWlsLmNvbSIsImV4cCI6MTcyNjcwMjI1NX0.rSEzkrDdYolhxpikrtaNWvilStjsJTtIU88GsC_6_Lp8DjuzwMdbQ-OE4e_jjt-laY7NByrA3yvzria2Lv-pqQ",
 				"type": "string"
 			}
 		]
