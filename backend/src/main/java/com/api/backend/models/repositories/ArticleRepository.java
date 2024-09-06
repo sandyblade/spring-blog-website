@@ -33,5 +33,8 @@ public interface ArticleRepository extends JpaRepository<Article, Long> {
 
 	@Query(value = "SELECT * from public.articles x WHERE x.id = ?1 AND x.user_id = ?2 LIMIT 1", nativeQuery = true)
 	Article findById(long id, long user_id);
+	
+	@Query(value = "SELECT * from public.articles x WHERE x.id = ?1 LIMIT 1", nativeQuery = true)
+	Article find(long id);
 
 }

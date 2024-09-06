@@ -17,8 +17,13 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.api.backend.helpers.CommonHelper;
 import com.api.backend.models.dto.CommentListDto;
 import com.api.backend.models.dto.ICommentDto;
+import com.api.backend.models.entities.Article;
+import com.api.backend.models.entities.Comment;
+import com.api.backend.models.entities.User;
+import com.api.backend.models.repositories.ArticleRepository;
 import com.api.backend.models.repositories.CommentRepository;
 
 @Service
@@ -27,6 +32,9 @@ public class CommentServiceImpl implements CommentService {
 	@Autowired
 	private CommentRepository repo;
 
+	@Autowired
+	private ArticleRepository article;
+	
 	@Override
 	public long countByArticle(long article_id) {
 		// TODO Auto-generated method stub
@@ -67,6 +75,43 @@ public class CommentServiceImpl implements CommentService {
 		}
 
 		return branch;
+	}
+
+	
+	@Override
+	public void Remove(User User, long Id) {
+		// TODO Auto-generated method stub
+		Comment comment = this.repo.findById(Id, User.getId());
+		if(comment != null) {
+			Article Article = comment.getArticle(); 
+			this.repo.delete(comment);
+			int total = (int) this.repo.countByArticle(Article.getId());
+			Article.setTotalComment(total);
+			article.save(Article);
+		}
+	}
+
+	@Override
+	public Comment saveOrUpdate(User User, Article Article, String Body, Comment Parent) {
+		// TODO Auto-generated method stub
+		try {
+			Comment comment = new Comment();
+			comment.setUser(User);
+			comment.setArticle(Article);
+			comment.setBody(Body);
+			comment.setParent(Parent);
+			comment.setCreatedAt(CommonHelper.DateNow());
+			comment.setUpdatedAt(CommonHelper.DateNow());
+			comment = this.repo.save(comment);
+			
+			int total = (int) this.repo.countByArticle(Article.getId());
+			Article.setTotalComment(total);
+			article.save(Article);
+			
+			return comment;
+		}catch(Exception e) {
+			return null;
+		}
 	}
 
 }

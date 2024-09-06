@@ -31,5 +31,6 @@ public interface ArticleService {
 	 Article Create(User User, ArticleSchema Model);
 	 Article Update(Article Article, ArticleSchema Model);
 	 Article saveOrUpdate(Article model);
+	 Article find(long id);
 	 void Remove(long id, long user_id);
 }

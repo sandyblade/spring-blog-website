@@ -149,4 +149,10 @@ public class ArticleServiceImpl implements ArticleService {
 		return result;
 	}
 
+	@Override
+	public Article find(long id) {
+		// TODO Auto-generated method stub
+		return this.repo.find(id);
+	}
+
 }
