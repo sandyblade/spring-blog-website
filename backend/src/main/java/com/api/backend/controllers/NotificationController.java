@@ -51,7 +51,6 @@ public class NotificationController extends BaseController {
 		User user = this.AuthUser();
 		int offset = ((page-1)*limit);
 		List<NotificationListDto> payload = NotificationService.findAll(user.getId(), offset, limit, orderby, orderdir, search);
-		System.out.println(payload.size());
 		return new ResponseEntity<Object>(new JsonResponseDto(true, "ok", payload), HttpStatus.OK);
 	}
 	

@@ -10,16 +10,17 @@ public class BaseController {
 
 	@Autowired
 	private UserService UserService;
-	
-	protected com.api.backend.models.entities.User AuthUser(){
-		
-		if(SecurityContextHolder.getContext().getAuthentication() == null)
-		{
+
+	protected com.api.backend.models.entities.User AuthUser() {
+		try {
+			if (SecurityContextHolder.getContext().getAuthentication() == null) {
+				return null;
+			}
+			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+			return UserService.findByEmail(auth.getName(), 0);
+		} catch (Exception e) {
 			return null;
 		}
-		
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		return UserService.findByEmail(auth.getName(), 0);
 	}
 
 }

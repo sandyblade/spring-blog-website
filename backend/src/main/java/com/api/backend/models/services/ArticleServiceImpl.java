@@ -11,32 +11,32 @@
 
 package com.api.backend.models.services;
 
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import com.api.backend.helpers.CommonHelper;
+import com.api.backend.models.dto.ArticleListDto;
+import com.api.backend.models.dto.NotificationListDto;
 import com.api.backend.models.entities.Activity;
 import com.api.backend.models.entities.Article;
+import com.api.backend.models.entities.User;
 import com.api.backend.models.repositories.ArticleRepository;
+import com.api.backend.models.schema.ArticleSchema;
 
 @Service
 public class ArticleServiceImpl implements ArticleService {
 
 	@Autowired
 	private ArticleRepository repo;
-
-	@Override
-	public Page<Article> findAll(Pageable pageable, String keyword) {
-		// TODO Auto-generated method stub
-		return this.repo.findAll(pageable, keyword);
-	}
-
-	@Override
-	public Page<Article> findByUser(Pageable pageable, long user_id, String keyword) {
-		// TODO Auto-generated method stub
-		return this.repo.findByUser(pageable, user_id, keyword);
-	}
 
 	@Override
 	public Article findBySlug(String slug, long id) {
@@ -51,17 +51,102 @@ public class ArticleServiceImpl implements ArticleService {
 	}
 
 	@Override
-	public Article saveOrUpdate(Article model) {
+	public Article Create(User User, ArticleSchema Model) {
 		// TODO Auto-generated method stub
-		this.repo.save(model);
-		return model;
+		try {
+			Article Article = new Article();
+			Article.setUser(User);
+			Article.setTitle(Model.getTitle());
+			Article.setSlug(CommonHelper.slugify(Model.getTitle()));
+			Article.setDescription(Model.getDescription());
+			Article.setContent(Model.getContent());
+			Article.setStatus(Model.getStatus());
+
+			if (Model.getCategories().size() > 0) {
+				String Categories = StringUtils.join(Model.getCategories(), ",");
+				Article.setCategories(Categories);
+			}
+
+			if (Model.getTags().size() > 0) {
+				String Tags = StringUtils.join(Model.getTags(), ",");
+				Article.setTags(Tags);
+			}
+
+			Article.setCreatedAt(CommonHelper.DateNow());
+			Article.setUpdatedAt(CommonHelper.DateNow());
+
+			this.repo.save(Article);
+			return Article;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	@Override
+	public Article Update(Article Article, ArticleSchema Model) {
+		// TODO Auto-generated method stub
+		try {
+			Article.setTitle(Model.getTitle());
+			Article.setSlug(CommonHelper.slugify(Model.getTitle()));
+			Article.setDescription(Model.getDescription());
+			Article.setContent(Model.getContent());
+			Article.setStatus(Model.getStatus());
+
+			if (Model.getCategories().size() > 0) {
+				String Categories = StringUtils.join(Model.getCategories(), ",");
+				Article.setCategories(Categories);
+			}
+
+			if (Model.getTags().size() > 0) {
+				String Tags = StringUtils.join(Model.getTags(), ",");
+				Article.setTags(Tags);
+			}
+
+			Article.setCreatedAt(CommonHelper.DateNow());
+			Article.setUpdatedAt(CommonHelper.DateNow());
+
+			this.repo.save(Article);
+			return Article;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	@Override
 	public void Remove(long id, long user_id) {
-		Article model = this.repo.findById(id, user_id);
-		this.repo.delete(model);
+		// TODO Auto-generated method stub
+		Article Article = repo.findById(id, user_id);
+		if (Article != null) {
+			this.repo.delete(Article);
+		}
+	}
 
+	@Override
+	public Article saveOrUpdate(Article model) {
+		// TODO Auto-generated method stub
+		return this.repo.save(model);
+	}
+
+	@Override
+	public List<ArticleListDto> findAll(int start, int length, String orderby, String orderdir, String search) {
+		// TODO Auto-generated method stub
+		List<ArticleListDto> result = new ArrayList<ArticleListDto>();
+		Pageable paging = PageRequest.of(start, length, Sort.by(orderby.equalsIgnoreCase("asc") ? Sort.Direction.ASC :  Sort.Direction.DESC, orderby));
+		Page<ArticleListDto> rows = repo.findAll(paging, search.toLowerCase());
+		result = rows.getContent();
+		return result;
+	}
+
+	@Override
+	public List<ArticleListDto> findAllByUser(long user_id, int start, int length, String orderby, String orderdir, String search) {
+		// TODO Auto-generated method stub
+		List<ArticleListDto> result = new ArrayList<ArticleListDto>();
+		Pageable paging = PageRequest.of(start, length, Sort.by(orderby.equalsIgnoreCase("asc") ? Sort.Direction.ASC :  Sort.Direction.DESC, orderby));
+		Page<ArticleListDto> rows = repo.findAllByUser(paging, user_id, search);
+		result = rows.getContent();
+		return result;
 	}
 
 }

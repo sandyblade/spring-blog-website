@@ -14,6 +14,7 @@ package com.api.backend.models.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.api.backend.helpers.CommonHelper;
 import com.api.backend.models.entities.Viewer;
 import com.api.backend.models.repositories.ViewerRepository;
 
@@ -32,8 +33,14 @@ public class ViewerServiceImpl implements ViewerService {
 	@Override
 	public Viewer saveOrUpdate(Viewer model) {
 		// TODO Auto-generated method stub
-		this.repo.save(model);
-	    return model;
+		try {
+			model.setCreatedAt(CommonHelper.DateNow());
+			model.setUpdatedAt(CommonHelper.DateNow());
+			this.repo.save(model);
+		    return model;
+		}catch(Exception e) {
+			return null;
+		}
 	}
 
 	@Override
