@@ -11,13 +11,18 @@
 
 package com.api.backend.models.services;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+
+import com.api.backend.models.dto.ActivityListDto;
+import com.api.backend.models.dto.NotificationListDto;
 import com.api.backend.models.entities.Notification;
 import com.api.backend.models.entities.User;
 
 public interface NotificationService {
-	Page<Notification> findAll(Pageable pageable, long user_id, String keyword);
+	List<NotificationListDto> findAll(long user_id, int start, int length, String orderby, String orderdir, String search);
 	Notification findById(long id, long user_id);
 	Notification saveOrUpdate(Notification model);
 	void Remove(long id, long user_id);

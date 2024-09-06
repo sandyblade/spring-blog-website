@@ -15,15 +15,15 @@ import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Value;
 
-public interface ActivityListDto {
-	
+public interface NotificationListDto {
+
 	public Long getId();
-	
-	@Value(value = "#{target.event}")
-	public String getEvent();
-	
-	@Value(value = "#{target.description}")
-	public String getDescription();
+
+	@Value(value = "#{target.subject}")
+	public String getSubject();
+
+	@Value(value = "#{target.message}")
+	public String getMessage();
 
 	@Value(value = "#{target.created_at}")
 	public Date getCreatedAt();

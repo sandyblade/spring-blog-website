@@ -83,10 +83,6 @@ public class AuthController {
 				return new ResponseEntity<Object>(new JsonResponseDto(false, "You need to confirm your account. We have sent you an activation code, please check your email.!", null), HttpStatus.BAD_REQUEST);
 			} else {
 				final String token = jwtTokenUtil.generateToken(userDetails);
-				if(!token.isEmpty()){
-					// Save Activity
-					ActivityService.saveActivity(user, "Sign In", "Sign in to application");
-				}
 				return ResponseEntity.ok(new JwtResponseDto(token));
 			}
 

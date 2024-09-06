@@ -12,11 +12,16 @@
 
 package com.api.backend.models.services;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-
+import com.api.backend.models.dto.NotificationListDto;
 import com.api.backend.models.entities.Notification;
 import com.api.backend.models.entities.User;
 import com.api.backend.models.repositories.NotificationRepository;
@@ -26,12 +31,6 @@ public class NotificationServiceImpl implements NotificationService {
 	
 	@Autowired
 	private NotificationRepository repo;
-
-	@Override
-	public Page<Notification> findAll(Pageable pageable, long user_id, String keyword) {
-		// TODO Auto-generated method stub
-		return this.repo.findAll(pageable, user_id, keyword);
-	}
 
 	@Override
 	public Notification findById(long id, long user_id) {
@@ -61,6 +60,16 @@ public class NotificationServiceImpl implements NotificationService {
 		notif.setSubject(Subject);
 		notif.setMessage(Message);
 		this.repo.save(notif);
+	}
+
+	@Override
+	public List<NotificationListDto> findAll(long user_id, int start, int length, String orderby, String orderdir, String search) {
+		// TODO Auto-generated method stub
+		List<NotificationListDto> result = new ArrayList<NotificationListDto>();
+		Pageable paging = PageRequest.of(start, length, Sort.by(orderby.equalsIgnoreCase("asc") ? Sort.Direction.ASC :  Sort.Direction.DESC, orderby));
+		Page<NotificationListDto> rows = repo.findAll(paging, user_id, search.toLowerCase());
+		result = rows.getContent();
+		return result;
 	}
 
 }
